@@ -1,6 +1,6 @@
 package com.deltareporter;
 
-import com.deltareporter.listener.DeltaListenerjUnit;
+import com.deltareporter.listener.DeltaListenerJUnit;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -17,10 +17,10 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
 
-        runner.addListener(new DeltaListenerjUnit());
+        runner.addListener(new DeltaListenerJUnit());
 
-        // runner.run(TestJunit1.class, TestJunit2.class);
-        runner.run(JunitTestSuite.class);
+        runner.run(TestJunit1.class, TestJunit2.class);
+        //runner.run(JunitTestSuite.class);
 
         System.out.println(result.wasSuccessful());
     }

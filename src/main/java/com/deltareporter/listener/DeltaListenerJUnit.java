@@ -5,7 +5,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
  
-public class DeltaListenerjUnit extends RunListener
+public class DeltaListenerJUnit extends RunListener
 {
     /**
      * Called before any tests have been run.
@@ -21,8 +21,20 @@ public class DeltaListenerjUnit extends RunListener
      * */
     public void testRunFinished(Result result) throws java.lang.Exception
     {
-      System.out.println("#### TEST RUN FINIDSHED ####");
+      System.out.println("#### TEST RUN FINISHED ####");
         System.out.println("Number of tests executed : " + result.getRunCount());
+    }
+
+    public void testSuiteStarted(Description description) throws Exception {
+      System.out.println("#### TEST SUITE STARTED ####");
+      System.out.println("Class namee : " + description.getClassName());
+      System.out.println("Display namee : " + description.getDisplayName());
+      System.out.println("Number of tests to execute : " + description.testCount());
+    }
+
+    public void testSuiteFinished(Description description) throws Exception {
+      System.out.println("#### TEST SUITE FINISHED ####");
+      System.out.println("Number of tests executed : " + description.testCount());
     }
  
     /**
@@ -52,8 +64,13 @@ public class DeltaListenerjUnit extends RunListener
       System.out.println("#### TEST FAILURE ####");
         System.out.println("Execution of test case failed : "+ failure.getMessage());
     }
- 
-    /**
+
+    public void testAssumptionFailure(Failure failure) {
+      System.out.println("#### TEST ASSUMPTION FAILURE ####");
+      System.out.println("Execution of test case presumably failed : "+ failure.getMessage());
+    }
+
+  /**
      *  Called when a test will not be run, generally because a test method is annotated with Ignore.
      * */
     public void testIgnored(Description description) throws java.lang.Exception
