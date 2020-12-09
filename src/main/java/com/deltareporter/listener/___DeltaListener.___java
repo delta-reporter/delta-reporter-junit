@@ -1,0 +1,172 @@
+package com.deltareporter.listener;
+
+//import com.deltareporter.listener.adapter.impl.SuiteAdapterImpl;
+//import com.deltareporter.listener.adapter.impl.TestContextAdapterImpl;
+//import com.deltareporter.listener.adapter.impl.TestResultAdapterImpl;
+//import org.testng.*;
+//
+// public class DeltaListener
+//    implements ISuiteListener, ITestListener, IHookable, IInvokedMethodListener {
+//  private final TestLifecycleAware listener = new DeltaEventRegistrar();
+//
+//  public void onStart(ISuite suiteContext) {
+//    SuiteAdapterImpl suiteAdapterImpl = new SuiteAdapterImpl(suiteContext);
+//    this.listener.onTestRunStarted(suiteAdapterImpl);
+//  }
+//
+//  public void onStart(ITestContext testContext) {
+//    TestContextAdapterImpl testContextAdapterImpl = new TestContextAdapterImpl(testContext);
+//    this.listener.onTestContextStart(testContextAdapterImpl);
+//  }
+//
+//  public void onTestStart(ITestResult result) {
+//    TestResultAdapterImpl testResultAdapterImpl = new TestResultAdapterImpl(result);
+//    this.listener.onTestStart(testResultAdapterImpl);
+//  }
+//
+//  public void onTestSuccess(ITestResult result) {
+//    TestResultAdapterImpl testResultAdapterImpl = new TestResultAdapterImpl(result);
+//    this.listener.onTestSuccess(testResultAdapterImpl);
+//  }
+//
+//  public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+//    TestResultAdapterImpl testResultAdapterImpl = new TestResultAdapterImpl(result);
+//    this.listener.onTestFailure(testResultAdapterImpl);
+//  }
+//
+//  public void onTestFailure(ITestResult result) {
+//    TestResultAdapterImpl testResultAdapterImpl = new TestResultAdapterImpl(result);
+//    this.listener.onTestFailure(testResultAdapterImpl);
+//  }
+//
+//  public void onTestSkipped(ITestResult result) {
+//    TestResultAdapterImpl testResultAdapterImpl = new TestResultAdapterImpl(result);
+//    this.listener.onTestSkipped(testResultAdapterImpl);
+//  }
+//
+//  public void onFinish(ISuite suiteContext) {
+//    SuiteAdapterImpl suiteAdapterImpl = new SuiteAdapterImpl(suiteContext);
+//    this.listener.onTestSuiteContextFinish(suiteAdapterImpl);
+//  }
+//
+//  public void onFinish(ITestContext testContext) {
+//    TestContextAdapterImpl testContextAdapterImpl = new TestContextAdapterImpl(testContext);
+//    this.listener.onTestContextFinish(testContextAdapterImpl);
+//  }
+//
+//  public void run(IHookCallBack hookCallBack, ITestResult result) {
+//    TestResultAdapterImpl testResultAdapterImpl = new TestResultAdapterImpl(result);
+//    this.listener.onTestHook(
+//        adapterToRun -> hookCallBack.runTestMethod(result), testResultAdapterImpl);
+//  }
+//
+//  public void beforeInvocation(IInvokedMethod invokedMethod, ITestResult result) {}
+//
+//  public void afterInvocation(IInvokedMethod invokedMethod, ITestResult testResult) {}
+//}
+
+import com.nordstrom.automation.junit.AtomicTest;
+import com.nordstrom.automation.junit.JUnitRetryAnalyzer;
+import com.nordstrom.automation.junit.MethodWatcher;
+import com.nordstrom.automation.junit.RunWatcher;
+import com.nordstrom.automation.junit.RunnerWatcher;
+import com.nordstrom.automation.junit.ShutdownListener;
+import com.nordstrom.automation.junit.TestObjectWatcher;
+//import com.zebrunner.agent.junit.adapter.JUnitAdapter;
+import org.junit.internal.AssumptionViolatedException;
+import org.junit.internal.runners.model.ReflectiveCallable;
+import org.junit.runners.model.FrameworkMethod;
+import org.apache.log4j.Logger;
+
+/**
+ * Zebrunner Agent Listener implementation tracking JUnit test run events
+ */
+public class DeltaListener implements ShutdownListener, RunnerWatcher, TestObjectWatcher, RunWatcher<FrameworkMethod>, MethodWatcher<FrameworkMethod>, JUnitRetryAnalyzer {
+
+//  private final JUnitAdapter adapter;
+//
+//  public void TestRunListener() {
+//    this.adapter = new JUnitAdapter();
+//  }
+
+static Logger log = Logger.getLogger(DeltaListener.class.getName());
+
+  @Override
+  public void runStarted(Object runner) {
+//    Describable describable = (Describable) runner;
+//    Description description = describable.getDescription();
+//    adapter.registerRunStart(description);
+  }
+
+  @Override
+  public void runFinished(Object runner) {
+//    Describable describable = (Describable) runner;
+//    Description description = describable.getDescription();
+//    adapter.registerRunFinish(description);
+  }
+
+  @Override
+  public void onShutdown() {
+    //System.out.println("on shutdown");
+  }
+
+  @Override
+  public void testStarted(AtomicTest<FrameworkMethod> atomicTest) {
+    System.out.println("#### TEST STARTED 1234 ####");
+    System.out.println(atomicTest.getDescription());
+    log.debug("Hello this is a debug message");
+    log.info("Hello this is an info message");
+//    Description description = atomicTest.getDescription();
+//    adapter.registerTestStart(description);
+  }
+
+  @Override
+  public void testFinished(AtomicTest<FrameworkMethod> atomicTest) {
+    System.out.println("#### TEST FINISHED ####");
+    System.out.println(atomicTest.getDescription());
+//    Description description = atomicTest.getDescription();
+//    adapter.registerTestFinish(description);
+  }
+
+  @Override
+  public void testFailure(AtomicTest<FrameworkMethod> atomicTest, Throwable thrown) {
+//    Description description = atomicTest.getDescription();
+//    Throwable error = atomicTest.getThrowable();
+//    adapter.registerTestFailure(description, error.getMessage());
+  }
+
+  @Override
+  public void testAssumptionFailure(AtomicTest<FrameworkMethod> atomicTest, AssumptionViolatedException thrown) {
+    //System.out.println("assumption failure");
+  }
+
+  @Override
+  public void testIgnored(AtomicTest<FrameworkMethod> atomicTest) {
+    //System.out.println("ignored");
+  }
+
+  @Override
+  public void beforeInvocation(Object runner, FrameworkMethod child, ReflectiveCallable callable) {
+    //System.out.println();
+  }
+
+  @Override
+  public void afterInvocation(Object runner, FrameworkMethod child, ReflectiveCallable callable, Throwable thrown) {
+    //System.out.println("after invocation");
+  }
+
+  @Override
+  public void testObjectCreated(Object testObj, Object runner) {
+    //System.out.println("test object created");
+  }
+
+  @Override
+  public Class<FrameworkMethod> supportedType() {
+    return FrameworkMethod.class;
+  }
+
+  @Override
+  public boolean retry(FrameworkMethod method, Throwable thrown) {
+    return false;
+  }
+}
