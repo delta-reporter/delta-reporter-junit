@@ -11,6 +11,10 @@ public enum Path {
 
   private final String relativePath;
 
+  public String getRelativePath(){
+    return relativePath;
+  }
+
   Path(String relativePath) {
     this.relativePath = relativePath;
   }

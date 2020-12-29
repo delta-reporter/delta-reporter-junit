@@ -2,34 +2,69 @@ package com.deltareporter.client;
 
 import com.deltareporter.models.*;
 import com.deltareporter.util.http.HttpClient;
+import org.apache.commons.lang3.StringUtils;
 
-public interface BasicClient {
+public class BasicClient {
 
-  boolean isAvailable();
+  private final String serviceURL;
+  private String project = "UNKNOWN";
 
-  HttpClient.Response<LaunchType> createLaunch(LaunchType paramLaunchType);
+  public BasicClient(String serviceURL) {
+    this.serviceURL = serviceURL;
+  }
 
-  HttpClient.Response<TestRunType> createTestRun(TestRunType paramTestRunType);
+  public synchronized HttpClient.Response<TestSuiteHistoryType> finishTestSuiteHistory(
+      TestSuiteHistoryType testHistory) {
+    return HttpClient.uri(Path.TEST_SUITE_HISTORY_PATH, this.serviceURL, new Object[0])
+        .onFailure("Unable to update test suite history")
+        .put(TestSuiteHistoryType.class, testHistory);
+  }
 
-  HttpClient.Response<TestSuiteHistoryType> createTestSuiteHistory(
-      TestSuiteHistoryType paramTestSuiteHistoryType);
+  public HttpClient.Response<TestCaseType> finishTest(TestCaseType test) {
+    return HttpClient.uri(Path.TEST_CASE_HISTORY_PATH, this.serviceURL, new Object[0])
+        .onFailure("Unable to finish test")
+        .put(TestCaseType.class, test);
+  }
 
-  HttpClient.Response<TestSuiteHistoryType> finishTestSuiteHistory(
-      TestSuiteHistoryType paramTestSuiteHistoryType);
+  public synchronized HttpClient.Response<TestRunType> finishTestRun(TestRunType testRun) {
+    return HttpClient.uri(Path.TEST_RUNS_PATH, this.serviceURL, new Object[0])
+        .onFailure("Unable to finish test run")
+        .put(TestRunType.class, testRun);
+  }
 
-  HttpClient.Response<TestCaseType> finishTest(TestCaseType paramTestType);
+  public synchronized HttpClient.Response<LaunchType> finishLaunch(LaunchType launch) {
+    return HttpClient.uri(Path.LAUNCH_FINISH, this.serviceURL, new Object[0])
+        .onFailure("Unable to finish launch")
+        .put(LaunchType.class, launch);
+  }
 
-  HttpClient.Response<TestRunType> finishTestRun(TestRunType paramTestRunType);
+  public synchronized HttpClient.Response<TestCaseType> createTestCase(TestCaseType testCase) {
+    return HttpClient.uri(Path.TEST_CASE_HISTORY_PATH, this.serviceURL, new Object[0])
+        .onFailure("Unable to create test case")
+        .post(TestCaseType.class, testCase);
+  }
 
-  HttpClient.Response<LaunchType> finishLaunch(LaunchType paramLaunchType);
+  public String getProject() {
+    return this.project;
+  }
 
-  HttpClient.Response<TestCaseType> createTestCase(TestCaseType paramTestCaseType);
+  public HttpClient.Response<ProjectType> getProjectByName(String name) {
+    return HttpClient.uri(Path.PROJECTS_PATH, this.serviceURL, new Object[] {name})
+        .onFailure("Unable to get project by name")
+        .get(ProjectType.class);
+  }
 
-  HttpClient.Response<ProjectType> getProjectByName(String paramString);
+  public BasicClient initProject(String project) {
+    if (!StringUtils.isEmpty(project)) {
+      HttpClient.Response<ProjectType> rs = getProjectByName(project);
+      if (rs.getStatus() == 200) {
+        this.project = ((ProjectType) rs.getObject()).getName();
+      }
+    }
+    return this;
+  }
 
-  String getProject();
-
-  BasicClient initProject(String paramString);
-
-  String getServiceUrl();
+  public String getServiceUrl() {
+    return this.serviceURL;
+  }
 }

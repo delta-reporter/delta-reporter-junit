@@ -26,6 +26,10 @@ public class TestCaseType extends AbstractType {
     this.test_history_id = test_history_id;
   }
 
+  public void setTest_id(Integer test_id) {
+    this.test_id = test_id;
+  }
+
   public void setStart_datetime(String datetime) {
     this.start_datetime = datetime;
   }

@@ -1,11 +1,9 @@
 package com.deltareporter.client;
 
-import com.deltareporter.client.impl.DeltaClientImpl;
-import com.deltareporter.listener.domain.DeltaConfiguration;
 import com.deltareporter.util.AsyncUtil;
 import com.deltareporter.util.ConfigurationUtil;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
-import org.apache.commons.configuration2.CombinedConfiguration;
 
 public enum DeltaSingleton {
   INSTANCE;
@@ -20,13 +18,13 @@ public enum DeltaSingleton {
               Integer result = null;
 
               try {
-                CombinedConfiguration config = ConfigurationUtil.getConfiguration(false);
+                Properties config = ConfigurationUtil.getConfigurationFile();
 
-                boolean enabled = ((Boolean) DeltaConfiguration.ENABLED.get(config)).booleanValue();
+                boolean enabled = Boolean.parseBoolean(config.getProperty("delta_enabled"));
 
-                String url = (String) DeltaConfiguration.SERVICE_URL.get(config);
+                String url = config.getProperty("delta_service_url");
 
-                this.deltaClient = new DeltaClientImpl(url);
+                this.deltaClient = new DeltaClient(url);
                 if (enabled && this.deltaClient.isAvailable()) {
                   result = 1;
                 }
