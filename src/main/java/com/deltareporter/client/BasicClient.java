@@ -20,12 +20,6 @@ public class BasicClient {
         .put(TestSuiteHistoryType.class, testHistory);
   }
 
-  public HttpClient.Response<TestCaseType> finishTest(TestCaseType test) {
-    return HttpClient.uri(Path.TEST_CASE_HISTORY_PATH, this.serviceURL, new Object[0])
-        .onFailure("Unable to finish test")
-        .put(TestCaseType.class, test);
-  }
-
   public synchronized HttpClient.Response<TestRunType> finishTestRun(TestRunType testRun) {
     return HttpClient.uri(Path.TEST_RUNS_PATH, this.serviceURL, new Object[0])
         .onFailure("Unable to finish test run")

@@ -27,32 +27,22 @@ public class DeltaListener extends RunListener {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeltaListener.class);
 
   private boolean DELTA_ENABLED;
-
   private boolean GENERATED_LAUNCH;
-
   private String DELTA_TEST_TYPE;
-
   private String DELTA_PROJECT;
-
   private String DELTA_SERVICE_URL;
-
   private Integer DELTA_LAUNCH_ID;
-
   private Integer DELTA_TEST_RUN_ID;
 
-  private TestSuiteHistoryType suiteHistory;
-
-  private Map<String, TestCaseType> registeredTests = new HashMap<>();
-
   private static ThreadLocal<TestCaseType> threadTest = new ThreadLocal<>();
+  private Map<String, TestCaseType> registeredTests = new HashMap<>();
+  private Map<String, TestSuiteHistoryType> registeredSuites = new HashMap<>();
 
   private TestRunService testRunService;
-
   private TestSuiteHistoryService testSuiteHistoryService;
-
   private LaunchService launchService;
-
   private TestCaseService testCaseService;
+  private TestSuiteHistoryType suiteHistory;
 
   @Override
   public void testRunStarted(Description description) {
@@ -132,9 +122,12 @@ public class DeltaListener extends RunListener {
     }
 
     try {
-      String datetime = new Date().toString();
-      this.suiteHistory = this.testSuiteHistoryService.register(
-          className, this.DELTA_TEST_TYPE, datetime, this.DELTA_TEST_RUN_ID, this.DELTA_PROJECT);
+      if (!this.registeredSuites.containsKey(className)) {
+        String datetime = new Date().toString();
+        this.suiteHistory = this.testSuiteHistoryService.register(
+            className, this.DELTA_TEST_TYPE, datetime, this.DELTA_TEST_RUN_ID, this.DELTA_PROJECT);
+        this.registeredSuites.put(className, suiteHistory);
+      }
 
       TestCaseType startedTest = null;
       String testDateTime = new Date().toString();

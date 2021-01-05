@@ -60,6 +60,12 @@ public class DeltaClient {
         .post(TestCaseType.class, testCase);
   }
 
+  public HttpClient.Response<TestCaseType> finishTest(TestCaseType test) {
+    return HttpClient.uri(Path.TEST_CASE_HISTORY_PATH, this.serviceURL)
+        .onFailure("Unable to finish test")
+        .put(TestCaseType.class, test);
+  }
+
   public HttpClient.Response<TestSuiteHistoryType> finishTestSuiteHistory(
       TestSuiteHistoryType testSuiteHistory) {
     return this.basicClient.finishTestSuiteHistory(testSuiteHistory);
@@ -73,9 +79,7 @@ public class DeltaClient {
     return this.basicClient.finishLaunch(testLaunch);
   }
 
-  public HttpClient.Response<TestCaseType> finishTest(TestCaseType test) {
-    return this.basicClient.finishTest(test);
-  }
+
 
   public HttpClient.Response<ProjectType> getProjectByName(String name) {
     return this.basicClient.getProjectByName(name);
