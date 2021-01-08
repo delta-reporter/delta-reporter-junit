@@ -42,7 +42,7 @@ public class TestSuiteHistoryService {
   }
 
 
-  public void finish(Integer test_suite_history_id, String end_datetime, String test_suite_status) {
-    this.deltaClient.finishTestSuiteHistory(test_suite_history_id, end_datetime, test_suite_status);
+  public void finish(Integer test_suite_history_id, String end_datetime) {
+    this.deltaClient.finishTestSuiteHistory(test_suite_history_id, end_datetime);
   }
 }

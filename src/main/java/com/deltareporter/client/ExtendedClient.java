@@ -16,15 +16,15 @@ public class ExtendedClient {
 
 
   public void finishTestSuiteHistory(
-      Integer test_suite_history_id, String end_datetime, String test_suite_status) {
+      Integer test_suite_history_id, String end_datetime) {
     TestSuiteHistoryType test_suite_history =
-        new TestSuiteHistoryType(test_suite_history_id, end_datetime, test_suite_status);
-    String suiteHistoryDetails = "ID: %d, End Datetime: %s, Test Suite Status: %s";
+        new TestSuiteHistoryType(test_suite_history_id, end_datetime);
+    String suiteHistoryDetails = "ID: %d, End Datetime: %s";
     LOGGER.debug(
         "Test Suite History details to update:"
             + String.format(
                 suiteHistoryDetails,
-                new Object[] {test_suite_history_id, end_datetime, test_suite_status}));
+                new Object[] {test_suite_history_id, end_datetime}));
 
     HttpClient.Response<TestSuiteHistoryType> response =
         this.client.finishTestSuiteHistory(test_suite_history);

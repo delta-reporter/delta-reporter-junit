@@ -104,9 +104,7 @@ public class DeltaListener extends RunListener {
     try {
       String end_datetime = new Date().toString();
       this.testSuiteHistoryService.finish(
-          this.suiteHistory.getTest_suite_history_id(),
-          end_datetime, description.getTestClass().getName()
-          );
+          this.suiteHistory.getTest_suite_history_id(), end_datetime);
     } catch (Throwable e) {
       LOGGER.error("Undefined error during test suite finish!", e);
     }

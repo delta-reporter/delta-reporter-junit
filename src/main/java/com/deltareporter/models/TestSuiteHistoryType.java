@@ -71,9 +71,8 @@ public class TestSuiteHistoryType extends AbstractType {
   }
 
   public TestSuiteHistoryType(
-      Integer test_suite_history_id, String end_datetime, String test_suite_status) {
+      Integer test_suite_history_id, String end_datetime) {
     this.test_suite_history_id = test_suite_history_id;
     this.end_datetime = end_datetime;
-    this.test_suite_status = test_suite_status;
   }
 }

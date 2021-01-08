@@ -106,9 +106,9 @@ public class DeltaClient {
   }
 
   public void finishTestSuiteHistory(
-      Integer test_suite_history_id, String end_datetime, String test_suite_status) {
+      Integer test_suite_history_id, String end_datetime) {
     this.extendedClient.finishTestSuiteHistory(
-        test_suite_history_id, end_datetime, test_suite_status);
+        test_suite_history_id, end_datetime);
   }
 
   public TestCaseType registerTestCase(
