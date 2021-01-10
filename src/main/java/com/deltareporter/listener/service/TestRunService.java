@@ -35,6 +35,13 @@ public class TestRunService {
   }
 
   public void finish(Integer test_run_id, String end_datetime, String test_run_status) {
-    this.deltaClient.finishTestRun(test_run_id, end_datetime, test_run_status);
+    TestRunType test_run = new TestRunType(test_run_id, end_datetime, test_run_status);
+    String testRunDetails = "Test Run ID: %s, End DateTime: %s, Test Run Status: %s";
+    LOGGER.info(
+        "Test Run details:"
+            + String.format(
+            testRunDetails, test_run_id, end_datetime, test_run_status));
+
+    this.deltaClient.finishTestRun(test_run);
   }
 }

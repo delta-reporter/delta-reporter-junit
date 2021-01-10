@@ -41,8 +41,16 @@ public class TestSuiteHistoryService {
     return test_suite_history;
   }
 
-
   public void finish(Integer test_suite_history_id, String end_datetime) {
-    this.deltaClient.finishTestSuiteHistory(test_suite_history_id, end_datetime);
+    TestSuiteHistoryType test_suite_history =
+        new TestSuiteHistoryType(test_suite_history_id, end_datetime);
+    String suiteHistoryDetails = "ID: %d, End Datetime: %s";
+    LOGGER.debug(
+        "Test Suite History details to update:"
+            + String.format(
+            suiteHistoryDetails,
+            test_suite_history_id, end_datetime));
+
+    this.deltaClient.finishTestSuiteHistory(test_suite_history);
   }
 }

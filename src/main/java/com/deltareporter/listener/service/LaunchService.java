@@ -36,6 +36,14 @@ public class LaunchService {
   }
 
   public void finish(Integer launch_id) {
-    this.client.finishLaunch(launch_id);
+    LaunchType launch = new LaunchType(launch_id);
+    String launchDetails = "Launch ID: %s";
+    LOGGER.debug(
+        "Launch details:"
+            + String.format(
+            launchDetails, launch_id));
+
+    HttpClient.Response<LaunchType> response = this.client.finishLaunch(launch);
+    LOGGER.info("Launch finished! Response: " + response);
   }
 }
