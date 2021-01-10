@@ -171,9 +171,14 @@ public class DeltaListener extends RunListener {
                 + threadId);
       }
 
-      TestCaseType finishedTest = populateTestResult(description);
-      threadTest.remove();
-      this.testCaseService.finishTest(finishedTest);
+      if (test.getTest_status() != null && (test.getTest_status().equals("Failed") || test.getTest_status().equals("Skipped"))) {
+        LOGGER.info("Test already marked as finished");
+      } else {
+        TestCaseType finishedTest = populateTestResult(description);
+        threadTest.remove();
+        this.testCaseService.finishTest(finishedTest);
+      }
+
     } catch (Throwable e) {
       LOGGER.error("Undefined error during test case/method finish!", e);
     }
@@ -194,10 +199,41 @@ public class DeltaListener extends RunListener {
 
   @Override
   public void testIgnored(Description description) {
+    final String className = description.getClassName();
+    final String methodName = description.getMethodName();
+
     if (!this.DELTA_ENABLED) {
       return;
     }
+
     try {
+      if (!this.registeredSuites.containsKey(className)) {
+        String datetime = new Date().toString();
+        this.suiteHistory = this.testSuiteHistoryService.register(
+            className, this.DELTA_TEST_TYPE, datetime, this.DELTA_TEST_RUN_ID, this.DELTA_PROJECT);
+        this.registeredSuites.put(className, suiteHistory);
+      }
+
+      TestCaseType startedTest = null;
+      String testDateTime = new Date().toString();
+      TestCaseType testCase = this.testCaseService.register(
+          methodName, testDateTime, null, this.suiteHistory.getTest_suite_id(),
+          this.DELTA_TEST_RUN_ID, this.suiteHistory.getTest_suite_history_id());
+
+      if (this.registeredTests.containsKey(methodName)) {
+        startedTest = this.registeredTests.get(methodName);
+        startedTest.setTest_history_id(testCase.getTest_history_id());
+        startedTest.setEnd_datetime(null);
+        startedTest.setStart_datetime(new Date().toString());
+      }
+
+      if (startedTest == null) {
+        startedTest = testCase;
+      }
+
+      threadTest.set(startedTest);
+      this.registeredTests.put(methodName, startedTest);
+
       TestCaseType finishedTest = populateTestResultOnSkip(description);
       this.testCaseService.finishTest(finishedTest);
     } catch (Throwable e) {
@@ -267,7 +303,7 @@ public class DeltaListener extends RunListener {
     String finishTime = new Date().toString();
 
     String testName = description.getMethodName();
-    LOGGER.debug("testName registered with current thread is: " + testName);
+    LOGGER.info("testName registered with current thread is: " + testName);
 
     if (test == null) {
       throw new RuntimeException(
@@ -319,7 +355,7 @@ public class DeltaListener extends RunListener {
     test.setMessage(message);
     test.setEnd_datetime(finishTime);
 
-    threadTest.remove();
+    //threadTest.remove();
     return test;
   }
 

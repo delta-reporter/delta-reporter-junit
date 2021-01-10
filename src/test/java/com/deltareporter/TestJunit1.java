@@ -2,15 +2,13 @@ package com.deltareporter;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class TestJunit1 {
-    String message = "Robert";
-    MessageUtil messageUtil = new MessageUtil(message);
 
     @Test
-    public void suite1test1Pass() {
+    public void suite1test1Pass() throws InterruptedException {
         System.out.println("Inside suite1Test1()");
+        Thread.sleep(2000);
         assertTrue(true);
     }
 

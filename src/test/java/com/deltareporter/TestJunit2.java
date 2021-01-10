@@ -5,8 +5,6 @@ import org.junit.Ignore;
 import static org.junit.Assert.assertTrue;
 
 public class TestJunit2 {
-    String message = "Robert";
-    MessageUtil messageUtil = new MessageUtil(message);
 
     @Test
     public void suite2test1Pass() {
@@ -16,8 +14,9 @@ public class TestJunit2 {
 
     @Ignore
     @Test
-    public void suite2test2Ignore() {
+    public void suite2test2Ignore() throws InterruptedException {
         System.out.println("Inside suite2Test2()");
+        Thread.sleep(1500);
         assertTrue(true);
     }
 }
