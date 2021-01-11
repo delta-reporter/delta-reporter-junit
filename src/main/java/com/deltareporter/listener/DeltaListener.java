@@ -171,7 +171,7 @@ public class DeltaListener extends RunListener {
                 + threadId);
       }
 
-      if (test.getTest_status() != null && (test.getTest_status().equals("Failed") || test.getTest_status().equals("Skipped"))) {
+      if (test.getStatus() != null && (test.getStatus().equals("Failed") || test.getStatus().equals("Skipped"))) {
         LOGGER.info("Test already marked as finished");
       } else {
         TestCaseType finishedTest = populateTestResult(description);
