@@ -4,32 +4,25 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.delta-reporter</groupId>
-  <artifactId>delta-reporter-testng-maven-plugin</artifactId>
-  <version>1.4.3-SNAPSHOT</version>
+  <artifactId>delta-reporter-junit-plugin</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>delta-reporter-testng-maven-plugin</name>
+  <name>delta-reporter-junit-plugin</name>
   <description>This plugin provides a custom listener and method interceptors to send data from your tests into Delta Reporter</description>
-  <url>https://github.com/delta-reporter/delta-reporter-testng</url>
+  <url>https://github.com/delta-reporter/delta-reporter-junit</url>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>https://github.com/delta-reporter/delta-reporter-testng</distribution>
+      <distribution>https://github.com/delta-reporter/delta-reporter-junit</distribution>
     </license>
   </licenses>
 
   <developers>
     <developer>
-      <name>Juan Negrier</name>
-      <email>juannegrier@gmail.com</email>
-      <organization>delta-reporter</organization>
-      <organizationUrl>https://github.com/delta-reporter</organizationUrl>
-      <timezone>UTC+01:00</timezone>
-    </developer>
-    <developer>
-      <name>Oleksandra Pishcheiko</name>
-      <email>alpish2@gmail.com</email>
+      <name>Cristian Moisa</name>
+      <email>cristianmoisa@ymail.com</email>
       <organization>delta-reporter</organization>
       <organizationUrl>https://github.com/delta-reporter</organizationUrl>
       <timezone>UTC+01:00</timezone>
@@ -37,9 +30,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com:delta-reporter/delta-reporter-testng.git</connection>
-    <developerConnection>scm:git:git@github.com:delta-reporter/delta-reporter-testng.git</developerConnection>
-    <url>https://github.com/delta-reporter/delta-reporter-testng</url>
+    <connection>scm:git:git://github.com:delta-reporter/delta-reporter-junit.git</connection>
+    <developerConnection>scm:git:git@github.com:delta-reporter/delta-reporter-junit.git</developerConnection>
+    <url>https://github.com/delta-reporter/delta-reporter-junit</url>
     <tag>HEAD</tag>
   </scm>
 
