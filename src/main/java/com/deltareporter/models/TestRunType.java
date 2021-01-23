@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class TestRunType extends AbstractType {
   @NotNull private String test_type;
   @NotNull private Integer launch_id;
-  @NotNull private String datetime;
+  @NotNull private String start_datetime;
   private String test_run_status;
   private String end_datetime;
   private Integer test_run_id;
@@ -19,7 +19,7 @@ public class TestRunType extends AbstractType {
   public TestRunType(String test_type, Integer launch_id, String datetime) {
     this.test_type = test_type;
     this.launch_id = launch_id;
-    this.datetime = datetime;
+    this.start_datetime = datetime;
   }
 
   public TestRunType(Integer test_run_id, String end_datetime, String test_run_status) {

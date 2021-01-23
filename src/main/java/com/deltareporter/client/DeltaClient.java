@@ -18,7 +18,7 @@ public class DeltaClient {
 
   public boolean isAvailable() {
     try{
-      HttpClient.Response response =
+      HttpClient.Response<String> response =
           HttpClient.uri(Path.STATUS_PATH, this.serviceURL)
               .onFailure("Unable to send ping")
               .get(String.class);

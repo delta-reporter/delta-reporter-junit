@@ -81,8 +81,11 @@ public class DeltaListener extends RunListener {
     }
     try {
       String end_datetime = new Date().toString();
+      String test_run_result = "Passed";
+      if (!result.wasSuccessful())
+        test_run_result = "Failed";
       this.testRunService.finish(
-          this.DELTA_TEST_RUN_ID, end_datetime, result.getClass().getName());
+          this.DELTA_TEST_RUN_ID, end_datetime, test_run_result);
       if (this.GENERATED_LAUNCH){
         this.launchService.finish(this.DELTA_LAUNCH_ID);
       }
@@ -171,7 +174,7 @@ public class DeltaListener extends RunListener {
                 + threadId);
       }
 
-      if (test.getStatus() != null && (test.getStatus().equals("Failed") || test.getStatus().equals("Skipped"))) {
+      if (test.getTest_status() != null && (test.getTest_status().equals("Failed") || test.getTest_status().equals("Skipped"))) {
         LOGGER.info("Test already marked as finished");
       } else {
         TestCaseType finishedTest = populateTestResult(description);
@@ -289,7 +292,7 @@ public class DeltaListener extends RunListener {
               + threadId);
     }
 
-    test.setStatus("Passed");
+    test.setTest_status("Passed");
     test.setEnd_datetime(finishTime);
     test.setTrace(null);
     test.setMessage(null);
@@ -313,7 +316,7 @@ public class DeltaListener extends RunListener {
               + threadId);
     }
 
-    test.setStatus("Skipped");
+    test.setTest_status("Skipped");
     test.setEnd_datetime(finishTime);
     test.setTrace(null);
     test.setMessage(null);
@@ -350,7 +353,7 @@ public class DeltaListener extends RunListener {
               + threadId);
     }
 
-    test.setStatus(status);
+    test.setTest_status(status);
     test.setTrace(trace);
     test.setMessage(message);
     test.setEnd_datetime(finishTime);

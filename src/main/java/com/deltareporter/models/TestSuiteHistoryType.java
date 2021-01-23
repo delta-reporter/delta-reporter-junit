@@ -16,7 +16,6 @@ public class TestSuiteHistoryType extends AbstractType {
   private Integer test_suite_history_id;
   private Integer test_suite_id;
   private String end_datetime;
-  private String test_suite_status;
   private String project;
 
   public TestSuiteHistoryType(

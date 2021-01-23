@@ -17,7 +17,7 @@ public class TestCaseType extends AbstractType {
   private Integer test_id;
   private Integer test_history_id;
   private boolean needRerun;
-  private String status;
+  private String test_status;
   private String end_datetime;
   private String trace;
   private String file;
