@@ -15,6 +15,6 @@ public class TestJunit1 {
     @Test
     public void suite1test2Fail() {
         System.out.println("Inside suite1test2()");
-        assertTrue("wtf",false);
+        assertTrue(true);
     }
 }
