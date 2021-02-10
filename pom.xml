@@ -4,42 +4,35 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.delta-reporter</groupId>
-  <artifactId>delta-reporter-testng-maven-plugin</artifactId>
-  <version>1.4.3-SNAPSHOT</version>
+  <artifactId>delta-reporter-junit-plugin</artifactId>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>delta-reporter-testng-maven-plugin</name>
+  <name>delta-reporter-junit-plugin</name>
   <description>This plugin provides a custom listener and method interceptors to send data from your tests into Delta Reporter</description>
-  <url>https://github.com/delta-reporter/delta-reporter-testng</url>
+  <url>https://github.com/delta-reporter/delta-reporter-junit</url>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>https://github.com/delta-reporter/delta-reporter-testng</distribution>
+      <distribution>https://github.com/delta-reporter/delta-reporter-junit</distribution>
     </license>
   </licenses>
 
   <developers>
-		<developer>
-			<name>Juan Negrier</name>
-			<email>juannegrier@gmail.com</email>
-			<organization>delta-reporter</organization>
-			<organizationUrl>https://github.com/delta-reporter</organizationUrl>
-			<timezone>UTC+01:00</timezone>
-    </developer>
     <developer>
-			<name>Oleksandra Pishcheiko</name>
-			<email>alpish2@gmail.com</email>
-			<organization>delta-reporter</organization>
-			<organizationUrl>https://github.com/delta-reporter</organizationUrl>
-			<timezone>UTC+01:00</timezone>
-		</developer>
+      <name>Cristian Moisa</name>
+      <email>cristianmoisa@ymail.com</email>
+      <organization>delta-reporter</organization>
+      <organizationUrl>https://github.com/delta-reporter</organizationUrl>
+      <timezone>UTC+01:00</timezone>
+    </developer>
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com:delta-reporter/delta-reporter-testng.git</connection>
-    <developerConnection>scm:git:git@github.com:delta-reporter/delta-reporter-testng.git</developerConnection>
-    <url>https://github.com/delta-reporter/delta-reporter-testng</url>
+    <connection>scm:git:git://github.com:delta-reporter/delta-reporter-junit.git</connection>
+    <developerConnection>scm:git:git@github.com:delta-reporter/delta-reporter-junit.git</developerConnection>
+    <url>https://github.com/delta-reporter/delta-reporter-junit</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -62,14 +55,10 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>7.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.26</version>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.6</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -90,11 +79,6 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.9</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-configuration2</artifactId>
-      <version>2.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -155,12 +139,29 @@
       <groupId>com.cosium.code</groupId>
       <artifactId>git-code-format-maven-plugin</artifactId>
       <version>2.1</version>
-  </dependency>
-  <dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.13</version>
-  </dependency>
+      <exclusions>
+        <exclusion>  <!-- declare the exclusion here -->
+          <groupId>org.slf4j</groupId>
+          <artifactId> slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13</version>
+    </dependency>
+    <dependency>
+      <groupId>com.nordstrom.tools</groupId>
+      <artifactId>java-utils</artifactId>
+      <version>1.10.1</version>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>3.0.5</version>
+    </dependency>
+
   </dependencies>
 
   <build>

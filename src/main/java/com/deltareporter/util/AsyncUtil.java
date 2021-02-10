@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 public class AsyncUtil {
   private static final Logger LOGGER = LoggerFactory.getLogger(AsyncUtil.class);
 
-  private static final int CONNECT_TIMEOUT = 60000;
-
   public static <I> I get(
       CompletableFuture<I> async, Supplier<CompletableFuture<I>> initFunctionality) {
     if (async == null) {
